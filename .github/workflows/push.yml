@@ -38,6 +38,27 @@ jobs:
           version: "latest"
           args: "format --check --respect-gitignore"
 
+      - name: Set up Python for Mypy
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12" # Or your primary development version
+
+      - name: Install UV for Mypy
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+          python-version: "3.12"
+          enable-cache: true
+          cache-suffix: mypy-${{ matrix.os }}-${{ matrix.python-version }}
+
+      - name: Install Mypy dependencies
+        run: |
+          uv pip install --system --upgrade pip
+          uv pip install --system ".[dev]" # dev dependencies include mypy
+
+      - name: Run Mypy
+        run: uv run mypy src/twat_mcp tests
+
   test:
     name: Run Tests
     needs: quality
@@ -109,4 +130,4 @@ jobs:
         with:
           name: dist-files
           path: dist/
-          retention-days: 5 
+          retention-days: 5
