@@ -22,6 +22,8 @@ classifiers = [
 ]
 
 dependencies = [
+    "mcp-openapi-proxy",
+    "mcp[cli]>=1.2.1",
     "twat",
 ]
 
@@ -309,23 +311,15 @@ histogram = true
 storage = "file" # Store benchmark data in .benchmarks/
 save_data = true # Save data from benchmarks
 compare = [
-    "min", "max", "mean", "stddev", "median", "iqr", "ops", "rounds",
-]
-# Example: fail if current run is 2x slower than previous
-# fail = ["mean:2"]
+    "min",    # Minimum time
+    "max",    # Maximum time
+    "mean",   # Mean time
+    "stddev", # Standard deviation
+    "median", # Median time
+    "iqr",    # Inter-quartile range
+    "ops",    # Operations per second
+    "rounds", # Number of rounds
+] 
 
-[tool.pyright] # For VSCode Pylance users, complements MyPy
-include = ["src", "tests"]
-exclude = ["**/node_modules", "**/__pycache__", "src/experimental", "typings"]
-# typeCheckingMode = "strict" # or "basic"
-# pythonVersion = "3.10"
-# pythonPlatform = "Linux"
-# reportMissingImports = true
-# reportMissingTypeStubs = false # Often too noisy for external libs
-# useLibraryCodeForTypes = true
-
-[tool.codespell]
-skip = "*.pyc,*.egg,*.png,*.gif,*.jpg,*.svg,*.ico,*.lock,poetry.lock,pyproject.toml.lock,*.txt,*.json,*.css,*.js,*.map,*.html"
-ignore-words-list = "ba,hist,nd,ın" # Add words to ignore
-# check-filenames = true
-# check-hidden = true
+[tool.uv.sources]
+mcp-openapi-proxy = { git = "https://github.com/matthewhand/mcp-openapi-proxy" }
