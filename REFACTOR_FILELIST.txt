@@ -1,0 +1,6 @@
+139	./uv.lock
+49	./dist/twat_mcp-0.0.post2+g5fb5277.tar.gz
+25	./README.md
+11	./pyproject.toml
+7	./dist/twat_mcp-0.0.post2+g5fb5277-py3-none-any.whl
+3	./tests/test_plugin.py
