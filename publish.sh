@@ -1,18 +1,10 @@
 #!/usr/bin/env bash
-# publish.sh — Build, install, and publish twat-mcp to PyPI
-# A MUD/MUSH/MUSE Multi-User Environment plugin for twat
+# publish.sh — Build and publish to PyPI using hatch-vcs semver from git tags.
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-bash "$SCRIPT_DIR/build.sh"
-bash "$SCRIPT_DIR/install.sh"
-
-echo "Tagging next version..."
-uvx gitnextver@latest
-
-echo "Publishing to PyPI..."
+uvx hatch clean
 uvx hatch build
+uvx gitnextver .
 uv publish
-
-echo "Done."
